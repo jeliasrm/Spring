@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class Mundo {
 
-	@Value("Hola Mundo")
+	@Value("Hola Mundos")
 	private String saludo;
 	
 
