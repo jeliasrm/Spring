@@ -1,0 +1,42 @@
+<bean id="metadata" class="org.springframework.security.saml.metadata.ExtendedMetadataDelegate">
+	<constructor-arg>
+	    <list>
+		<bean class="org.opensaml.saml2.metadata.provider.HTTPMetadataProvider">
+			<constructor-arg>
+				<value type="java.lang.String">"https://vmsa.vmdom.local/SecureAuth20.xml"</value>
+			</constructor-arg>
+			<constructor-arg>
+				<value type="init">15000</value>
+			</constructor-arg>
+			<property name="parserPool" ref="parserPool"/>
+		</bean>
+	   	<bean class="org.springframework.security.saml.metadata.ExtendedMetadataDelegate">
+			<constructor-arg>
+				<bean class="org.springframework.security.saml.metadata.FilesystemMetadataDelegate">
+					<constructor-arg>
+						<value type="java.io.File">classpath:security/vmspringvmdomlocal_sp.xml</value>
+					</constructor-arg>
+					<property name="parserPool" ref="parserPool"/>
+				</bean>
+			</constructor-arg>
+			<constructor-arg>
+		 		<bean class="org.springframework.security.saml.metadata.ExtendedMetadata">
+		   			<property name="local" value="true"/>
+		   			<property name="alias" value="vmspring.vmdom.local"/>
+		   			<property name="securityProfile" value="metaiop"/>
+		   			<property name="sslSecurityProfile" value="metaiop"/>
+					<property name="sslHostnameVerification" value="allowAll"/>
+		   			<property name="signingKey" value="apollo"/>
+		   			<property name="encryptionKey" value="apollo"/>
+		   			<property name="requireArtifactResolveSigned" value="false"/>
+		   			<property name="requireLogoutRequestSigned" value="false"/>
+		   			<property name="requireLogoutResponseSigned" value="false"/>
+		   			<property name="idpDiscoveryEnabled" value="false"/>
+		 		</bean>
+			</constructor-arg>
+		</bean>
+	    </list>
+	</constructor-arg>
+	<property name="hostedSPName" value="vmspring.vmdom.local"/>
+	<property name="defaultIDP" value="https://vmsa.vmdom.local/SecureAuth20"/>
+</bean>
